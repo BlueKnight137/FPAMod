@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "fpamod",
+  "version": "${version}",
+  "name": "First Person Animation Mod",
+  "description": "Adds a way to animate first person items using JSON.",
+  "authors": ["BlueKnight137"],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/fpamod/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "io.github.blueknight137.fpamod.FPAMod"
+    ]
+  },
+  "mixins": [
+    "fpalib.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
