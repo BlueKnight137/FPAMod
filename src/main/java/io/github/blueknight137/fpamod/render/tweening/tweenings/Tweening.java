@@ -1,7 +1,7 @@
 package io.github.blueknight137.fpamod.render.tweening.tweenings;
 
 import io.github.blueknight137.fpamod.FPAMod;
-import io.github.blueknight137.fpamod.render.KeyFrame;
+import io.github.blueknight137.fpamod.render.Keyframe;
 import io.github.blueknight137.fpamod.render.RenderData;
 
 import java.util.ArrayList;
@@ -18,20 +18,20 @@ import java.util.List;
  * Examples of this can be found in {@link TweeningTypes}.
  */
 public abstract class Tweening {
-    public final KeyFrame start;
-    public final KeyFrame end;
-    protected final List<KeyFrame> keyFrames;
+    public final Keyframe start;
+    public final Keyframe end;
+    protected final List<Keyframe> keyframes;
 
-    private void ensureKeyFramesInOrder(KeyFrame start, KeyFrame end) {
-        KeyFrame keyFrame = start.next;
-        float timeStamp = start.getTimeStamp();
+    private void ensureKeyFramesInOrder(Keyframe start, Keyframe end) {
+        Keyframe keyFrame = start.next;
+        float timeStamp = start.getTimestamp();
         while (keyFrame != null && keyFrame != end) {
             keyFrame = keyFrame.next;
             if(keyFrame != null) {
-                if(timeStamp > keyFrame.getTimeStamp()) {
+                if(timeStamp > keyFrame.getTimestamp()) {
                     throw new IllegalArgumentException("KeyFrame timestamps are not aligned!");
                 }
-                timeStamp = keyFrame.getTimeStamp();
+                timeStamp = keyFrame.getTimestamp();
             }
         }
         if(keyFrame == null) {
@@ -39,22 +39,22 @@ public abstract class Tweening {
         }
     }
 
-    protected Tweening(KeyFrame start, KeyFrame end) {
+    protected Tweening(Keyframe start, Keyframe end) {
         ensureKeyFramesInOrder(start, end);
         this.start = start;
         this.end = end;
-        keyFrames = new ArrayList<>();
-        KeyFrame keyFrame = start;
+        keyframes = new ArrayList<>();
+        Keyframe keyFrame = start;
         while (keyFrame != end.next) {
-            keyFrames.add(keyFrame);
+            keyframes.add(keyFrame);
             keyFrame = keyFrame.next;
         }
     }
 
 
     public boolean isApplicable(float progress) {
-        return start.getTimeStamp() <= progress && progress <= end.getTimeStamp();
+        return start.getTimestamp() <= progress && progress <= end.getTimestamp();
     }
 
-    public abstract void applyTransition(RenderData data, KeyFrame lastKeyFrame, float progress);
+    public abstract void applyTransition(RenderData data, Keyframe lastKeyframe, float progress);
 }

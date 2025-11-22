@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import io.github.blueknight137.fpamod.FPAMod;
 import io.github.blueknight137.fpamod.render.Animation;
 import io.github.blueknight137.fpamod.render.Animation.Builder;
-import io.github.blueknight137.fpamod.render.KeyFrame;
+import io.github.blueknight137.fpamod.render.Keyframe;
 import io.github.blueknight137.fpamod.render.Transformation;
 import io.github.blueknight137.fpamod.render.tweening.tweeners.TweenerType;
 
@@ -25,7 +25,7 @@ public class AnimationDeserializer extends JsonDeserializer<Animation> {
 
             builder.setInitialTransformation(data.initialTransformation);
 
-            for (var keyFrame : data.keyFrames) {
+            for (var keyFrame : data.keyframes) {
                 builder.addKeyFrame(keyFrame);
             }
 
@@ -48,7 +48,7 @@ public class AnimationDeserializer extends JsonDeserializer<Animation> {
         @JsonProperty
         Transformation initialTransformation = new Transformation();
         @JsonProperty
-        List<KeyFrame> keyFrames;
+        List<Keyframe> keyframes;
         @JsonProperty
         List<TweeningData> tweenings;
     }

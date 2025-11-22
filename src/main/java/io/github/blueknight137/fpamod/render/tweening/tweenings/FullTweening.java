@@ -1,6 +1,6 @@
 package io.github.blueknight137.fpamod.render.tweening.tweenings;
 
-import io.github.blueknight137.fpamod.render.KeyFrame;
+import io.github.blueknight137.fpamod.render.Keyframe;
 import io.github.blueknight137.fpamod.render.RenderData;
 import io.github.blueknight137.fpamod.render.tweening.tweeners.TweenerType;
 import io.github.blueknight137.fpamod.render.tweening.tweeners.TweenerVector3;
@@ -14,12 +14,12 @@ public class FullTweening extends Tweening {
     private final TweenerVector3 rotationTweener;
     private final TweenerVector3 scaleTweener;
 
-    public FullTweening(KeyFrame start, KeyFrame end, List<Float> arguments, TweenerType tweenerType) {
+    public FullTweening(Keyframe start, Keyframe end, List<Float> arguments, TweenerType tweenerType) {
         super(start, end);
-        List<Float> timeStamps = keyFrames.stream().map(KeyFrame::getTimeStamp).toList();
-        List<Vector3f> positions = keyFrames.stream().map(KeyFrame::getPosition).toList();
-        List<Vector3f> rotations = keyFrames.stream().map(KeyFrame::getRotation).toList();
-        List<Vector3f> scales = keyFrames.stream().map(KeyFrame::getScale).toList();
+        List<Float> timeStamps = keyframes.stream().map(Keyframe::getTimestamp).toList();
+        List<Vector3f> positions = keyframes.stream().map(Keyframe::getPosition).toList();
+        List<Vector3f> rotations = keyframes.stream().map(Keyframe::getRotation).toList();
+        List<Vector3f> scales = keyframes.stream().map(Keyframe::getScale).toList();
 
         positionTweener = new TweenerVector3(
                 tweenerType,
@@ -44,7 +44,7 @@ public class FullTweening extends Tweening {
     }
 
     @Override
-    public void applyTransition(RenderData data, KeyFrame lastKeyFrame, float progress) {
+    public void applyTransition(RenderData data, Keyframe lastKeyframe, float progress) {
          data
                  .setPosition(positionTweener.tween(progress))
                  .setRotation(rotationTweener.tween(progress))

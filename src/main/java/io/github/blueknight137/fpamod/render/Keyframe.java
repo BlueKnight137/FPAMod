@@ -5,22 +5,22 @@ import org.joml.Vector3f;
 
 import java.util.Set;
 
-public class KeyFrame {
+public class Keyframe {
     public final Transformation transformation;
-    public final float timeStamp;
+    public final float timestamp;
     public final Set<String> tags;
 
     @JsonIgnore
-    public KeyFrame next;
+    public Keyframe next;
 
     // default constructor is required for deserialization
-    public KeyFrame() {
+    public Keyframe() {
         this(new Transformation(), 0f);
     }
 
-    public KeyFrame(Transformation transformation, float timeStamp, String... tags) {
+    public Keyframe(Transformation transformation, float timestamp, String... tags) {
         this.transformation = transformation;
-        this.timeStamp = timeStamp;
+        this.timestamp = timestamp;
         this.tags = Set.of(tags);
     }
 
@@ -44,8 +44,8 @@ public class KeyFrame {
         return new RenderData(transformation);
     }
 
-    public float getTimeStamp() {
-        return timeStamp;
+    public float getTimestamp() {
+        return timestamp;
     }
 
     public boolean hasTag(String tag) {

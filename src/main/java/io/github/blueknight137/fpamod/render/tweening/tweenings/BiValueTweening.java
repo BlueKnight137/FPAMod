@@ -1,6 +1,6 @@
 package io.github.blueknight137.fpamod.render.tweening.tweenings;
 
-import io.github.blueknight137.fpamod.render.KeyFrame;
+import io.github.blueknight137.fpamod.render.Keyframe;
 import io.github.blueknight137.fpamod.render.RenderData;
 import io.github.blueknight137.fpamod.render.tweening.tweeners.Tweener;
 import io.github.blueknight137.fpamod.render.tweening.tweeners.TweenerType;
@@ -17,8 +17,8 @@ public class BiValueTweening extends Tweening {
     private final Tweener tweener2;
 
     protected BiValueTweening(
-            KeyFrame start,
-            KeyFrame end,
+            Keyframe start,
+            Keyframe end,
             List<Float> arguments,
             TweenerType tweenerType,
             Function<RenderData, Vector2f> valueExtractor,
@@ -26,8 +26,8 @@ public class BiValueTweening extends Tweening {
     ) {
         super(start, end);
         this.renderDataModifier = renderDataModifier;
-        List<Float> timeStamps = keyFrames.stream().map(KeyFrame::getTimeStamp).toList();
-        List<Vector2f> values = keyFrames.stream().map(KeyFrame::getRenderData).map(valueExtractor).toList();
+        List<Float> timeStamps = keyframes.stream().map(Keyframe::getTimestamp).toList();
+        List<Vector2f> values = keyframes.stream().map(Keyframe::getRenderData).map(valueExtractor).toList();
         tweener1 = tweenerType.constructTweener(
                 arguments,
                 timeStamps,
@@ -41,7 +41,7 @@ public class BiValueTweening extends Tweening {
     }
 
     @Override
-    public void applyTransition(RenderData data, KeyFrame lastKeyFrame, float progress) {
+    public void applyTransition(RenderData data, Keyframe lastKeyframe, float progress) {
         renderDataModifier.accept(data, new Vector2f(tweener1.tween(progress), tweener2.tween(progress)));
     }
 }

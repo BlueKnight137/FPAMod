@@ -17,9 +17,9 @@ import java.util.function.BiFunction;
 @JsonDeserialize(using = AnimationDeserializer.class)
 public class Animation {
 
-    private final KeyFrame start;
-    private final KeyFrame end;
-    private KeyFrame last;
+    private final Keyframe start;
+    private final Keyframe end;
+    private Keyframe last;
     private final List<Tweening> tweenings;
     private final Tweening fallbackTweening;
     private final Transformation initialTransformation;
@@ -36,10 +36,10 @@ public class Animation {
     }
 
     private void maybePropagateKeyFrame(float progress) {
-        if(last.getTimeStamp() > progress) {
+        if(last.getTimestamp() > progress) {
             last = start;
         }
-        while (last != end && last.next.getTimeStamp() < progress) {
+        while (last != end && last.next.getTimestamp() < progress) {
             last = last.next;
         }
     }
@@ -67,7 +67,7 @@ public class Animation {
         initialTransformation.applyMCStyle(matrixStack);
     }
 
-    protected Animation(KeyFrame start, KeyFrame end, List<Tweening> tweenings, Transformation initialTransformation) {
+    protected Animation(Keyframe start, Keyframe end, List<Tweening> tweenings, Transformation initialTransformation) {
         this.start = start;
         this.last = start;
         this.end = end;
@@ -77,35 +77,35 @@ public class Animation {
     }
 
     public static class Builder {
-        KeyFrame start = null;
-        private final List<KeyFrame> keyFrames = new ArrayList<>();
+        Keyframe start = null;
+        private final List<Keyframe> keyframes = new ArrayList<>();
         private final List<Tweening> tweenings = new ArrayList<>();
         private Transformation initialTransformation = new Transformation();
 
-        public Builder addKeyFrame(KeyFrame keyFrame) {
+        public Builder addKeyFrame(Keyframe keyFrame) {
             if(start == null) {
                 start = keyFrame;
-                keyFrames.add(keyFrame);
+                keyframes.add(keyFrame);
             } else {
-                if(keyFrames.getLast().getTimeStamp() > keyFrame.getTimeStamp()) {
-                    FPAMod.LOGGER.error("Invalid keyframe order detected! Keyframe with timestamp [{}] is not in order compared to the other keyframes!", keyFrame.getTimeStamp());
+                if(keyframes.getLast().getTimestamp() > keyFrame.getTimestamp()) {
+                    FPAMod.LOGGER.error("Invalid keyframe order detected! Keyframe with timestamp [{}] is not in order compared to the other keyframes!", keyFrame.getTimestamp());
                     throw new IllegalArgumentException("KeyFrame is before the last KeyFrame!");
                 }
-                keyFrames.getLast().next = keyFrame;
-                keyFrames.add(keyFrame);
+                keyframes.getLast().next = keyFrame;
+                keyframes.add(keyFrame);
             }
             return this;
         }
 
-        public Builder addTweening(BiFunction<KeyFrame, KeyFrame, Tweening> tweeningFactory, String startTag, String endTag) {
-            for(int i = 0; i < keyFrames.size(); i++) {
-                if(!keyFrames.get(i).hasTag(startTag)) continue;
-                KeyFrame startKeyFrame = keyFrames.get(i);
+        public Builder addTweening(BiFunction<Keyframe, Keyframe, Tweening> tweeningFactory, String startTag, String endTag) {
+            for(int i = 0; i < keyframes.size(); i++) {
+                if(!keyframes.get(i).hasTag(startTag)) continue;
+                Keyframe startKeyframe = keyframes.get(i);
                 boolean foundEnd = false;
-                for(int j = i+1; j < keyFrames.size() && !foundEnd; j++) {
-                    if(!keyFrames.get(j).hasTag(endTag)) continue;
-                    KeyFrame endKeyFrame = keyFrames.get(j);
-                    tweenings.add(tweeningFactory.apply(startKeyFrame, endKeyFrame));
+                for(int j = i+1; j < keyframes.size() && !foundEnd; j++) {
+                    if(!keyframes.get(j).hasTag(endTag)) continue;
+                    Keyframe endKeyframe = keyframes.get(j);
+                    tweenings.add(tweeningFactory.apply(startKeyframe, endKeyframe));
                     foundEnd = true;
                 }
                 if(!foundEnd) {
@@ -122,15 +122,15 @@ public class Animation {
         }
 
         public Animation build() {
-            KeyFrame start = this.start;
-            if(start.getTimeStamp() != 0f) {
-                KeyFrame previousStart = start;
-                start = new KeyFrame(start.getTransformation(), 0f);
+            Keyframe start = this.start;
+            if(start.getTimestamp() != 0f) {
+                Keyframe previousStart = start;
+                start = new Keyframe(start.getTransformation(), 0f);
                 start.next = previousStart;
             }
-            KeyFrame end = keyFrames.getLast();
-            if(end.getTimeStamp() != 1f) {
-                KeyFrame newEnd = new KeyFrame(end.getTransformation(), 1f);
+            Keyframe end = keyframes.getLast();
+            if(end.getTimestamp() != 1f) {
+                Keyframe newEnd = new Keyframe(end.getTransformation(), 1f);
                 end.next = newEnd;
                 end = newEnd;
             }
