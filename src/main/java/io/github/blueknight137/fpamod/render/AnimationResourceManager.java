@@ -27,8 +27,8 @@ public class AnimationResourceManager implements SimpleSynchronousResourceReload
     private final Map<Item, AnimationSet> animationSetMap = new HashMap<>();
     // item tags are not registered when the resource manager loads, so we have to resolve them later
     private final Queue<Entry<String, AnimationSet>> itemTagResolutionQueue = new LinkedList<>();
-    private static final String ANIMATIONS_PATH = "animations";
-    private static final String ANIMATION_SETS_PATH = "animation_sets";
+    private static final String ANIMATIONS_PATH = "fpamod_animations";
+    private static final String ANIMATION_SETS_PATH = "fpamod_animation_sets";
 
     public AnimationResourceManager() {
         ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(this);
@@ -56,7 +56,7 @@ public class AnimationResourceManager implements SimpleSynchronousResourceReload
         for(var id : manager.findResources(ANIMATIONS_PATH, path -> path.toString().endsWith("json")).keySet()) {
             try(InputStream stream = manager.getResource(id).orElseThrow().getInputStream()) {
                 Animation data = mapper.readValue(stream, Animation.class);
-                animationIDMap.put(id, data);
+                animationIDMap.put(Identifier.of(id.getNamespace(), id.getPath().substring(ANIMATIONS_PATH.length()+1)), data);
             } catch (IOException e) {
                 FPAMod.LOGGER.error("Could not load animation with id [{}]! It is potentially invalid!", id);
                 FPAMod.LOGGER.debug("Animation error!", e);
