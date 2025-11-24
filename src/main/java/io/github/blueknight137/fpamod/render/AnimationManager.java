@@ -208,17 +208,17 @@ public class AnimationManager {
         /**
          * The player is swinging from an attack but is not targeting anything.
          */
-        MISSING(renderContext -> renderContext.getActualAttackCooldown() >= 1 && !renderContext.player().handSwinging),
+        MISSING(renderContext -> renderContext.getActualAttackCooldown(0, 1) >= 1 && !renderContext.player().handSwinging),
 
         /**
          * The player is attacking an entity.
          */
-        ATTACKING(renderContext -> renderContext.getActualAttackCooldown() >= 1 && !renderContext.player().handSwinging),
+        ATTACKING(renderContext -> renderContext.getActualAttackCooldown(0, 1) >= 1 && !renderContext.player().handSwinging),
 
         /**
          * The player is attacking an entity with crit.
          */
-        CRITING(renderContext -> renderContext.getActualAttackCooldown() >= 1 && !renderContext.player().handSwinging),
+        CRITING(renderContext -> renderContext.getActualAttackCooldown(0, 1) >= 1 && !renderContext.player().handSwinging),
 
         /**
          * The player is mining a block.
