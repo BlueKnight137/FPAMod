@@ -3,7 +3,7 @@ package io.github.blueknight137.fpamod;
 import io.github.blueknight137.fpamod.render.*;
 import io.github.blueknight137.fpamod.render.tweening.tweeners.TweenerType;
 import io.github.blueknight137.fpamod.render.tweening.tweeners.TweenerTypes;
-import io.github.blueknight137.fpamod.render.tweening.tweenings.TweeningType;
+import io.github.blueknight137.fpamod.render.tweening.tweenings.TweeningSelector;
 import io.github.blueknight137.fpamod.render.tweening.tweenings.TweeningTypes;
 import net.fabricmc.api.ClientModInitializer;
 import org.slf4j.Logger;
@@ -16,16 +16,16 @@ public class FPAMod implements ClientModInitializer {
     private static AnimationManager animationManager;
     public static ItemInspectManager itemInspectManager;
     private static AnimationResourceManager animationResourceManager;
-    public static ClientRegistry<TweeningType> tweeningTypeClientRegistry;
+    public static ClientRegistry<TweeningSelector> tweeningSelectorClientRegistry;
     public static ClientRegistry<TweenerType> tweenerTypeClientRegistry;
     public static AnimationTypeClientRegistry animationTypeClientRegistry;
 
     @Override
     public void onInitializeClient() {
         animationTypeClientRegistry = new AnimationTypeClientRegistry();
-        tweeningTypeClientRegistry = new ClientRegistry<>();
+        tweeningSelectorClientRegistry = new ClientRegistry<>();
         tweenerTypeClientRegistry = new ClientRegistry<>();
-        TweeningTypes.registerTweeningTypes(tweeningTypeClientRegistry);
+        TweeningTypes.registerTweeningTypes(tweeningSelectorClientRegistry);
         TweenerTypes.registerTweenerTypes(tweenerTypeClientRegistry);
         AnimationTypes.registerAnimationTypes();
         animationResourceManager = new AnimationResourceManager();

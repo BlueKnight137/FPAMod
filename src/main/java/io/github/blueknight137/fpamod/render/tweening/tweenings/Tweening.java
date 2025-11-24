@@ -14,7 +14,7 @@ import java.util.List;
  * individual coordinates (defined in its subtypes).
  * <br/><br/>
  * Creating a new Tweening is simple. Extend this abstract class then register a
- * {@link TweeningType} that construct the Tweening into {@link FPAMod#tweeningTypeClientRegistry}.
+ * {@link TweeningSelector} that construct the Tweening into {@link FPAMod#tweeningSelectorClientRegistry}.
  * Examples of this can be found in {@link TweeningTypes}.
  */
 public abstract class Tweening {

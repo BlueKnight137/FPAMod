@@ -8,13 +8,13 @@ import org.joml.Vector2f;
 
 public class TweeningTypes {
 
-    public static void registerTweeningTypes(ClientRegistry<TweeningType> clientRegistry) {
-        clientRegistry.register(new TweeningType(
+    public static void registerTweeningTypes(ClientRegistry<TweeningSelector> clientRegistry) {
+        clientRegistry.register(new TweeningSelector(
                 Identifier.of(FPAMod.MODID, "full"),
                 (tweenerType, arguments) -> (start, end) -> new FullTweening(start, end, arguments, tweenerType)
         ));
-        clientRegistry.register(new TweeningType(
-                Identifier.of(FPAMod.MODID, "position"),
+        clientRegistry.register(new TweeningSelector(
+                Identifier.of(FPAMod.MODID, "translation"),
                 (tweenerType, arguments) -> (start, end) ->
                         new TriValueTweening(
                                 start,
@@ -25,7 +25,7 @@ public class TweeningTypes {
                                 RenderData::setPosition
                         )
         ));
-        clientRegistry.register(new TweeningType(
+        clientRegistry.register(new TweeningSelector(
                 Identifier.of(FPAMod.MODID, "rotation"),
                 (tweenerType, arguments) -> (start, end) ->
                         new TriValueTweening(
@@ -37,7 +37,7 @@ public class TweeningTypes {
                                 RenderData::setRotation
                         )
         ));
-        clientRegistry.register(new TweeningType(
+        clientRegistry.register(new TweeningSelector(
                 Identifier.of(FPAMod.MODID, "scale"),
                 (tweenerType, arguments) -> (start, end) ->
                         new TriValueTweening(
@@ -49,7 +49,7 @@ public class TweeningTypes {
                                 RenderData::setScale
                         )
         ));
-        clientRegistry.register(new TweeningType(
+        clientRegistry.register(new TweeningSelector(
                 Identifier.of(FPAMod.MODID, "x"),
                 (tweenerType, arguments) -> (start, end) ->
                         new ValueTweening(
@@ -61,7 +61,7 @@ public class TweeningTypes {
                                 RenderData::setPositionX
                         )
         ));
-        clientRegistry.register(new TweeningType(
+        clientRegistry.register(new TweeningSelector(
                 Identifier.of(FPAMod.MODID, "y"),
                 (tweenerType, arguments) -> (start, end) ->
                         new ValueTweening(
@@ -73,7 +73,7 @@ public class TweeningTypes {
                                 RenderData::setPositionY
                         )
         ));
-        clientRegistry.register(new TweeningType(
+        clientRegistry.register(new TweeningSelector(
                 Identifier.of(FPAMod.MODID, "z"),
                 (tweenerType, arguments) -> (start, end) ->
                         new ValueTweening(
@@ -85,7 +85,7 @@ public class TweeningTypes {
                                 RenderData::setPositionZ
                         )
         ));
-        clientRegistry.register(new TweeningType(
+        clientRegistry.register(new TweeningSelector(
                 Identifier.of(FPAMod.MODID, "yaw"),
                 (tweenerType, arguments) -> (start, end) ->
                         new ValueTweening(
@@ -97,7 +97,7 @@ public class TweeningTypes {
                                 RenderData::setYaw
                         )
         ));
-        clientRegistry.register(new TweeningType(
+        clientRegistry.register(new TweeningSelector(
                 Identifier.of(FPAMod.MODID, "pitch"),
                 (tweenerType, arguments) -> (start, end) ->
                         new ValueTweening(
@@ -109,7 +109,7 @@ public class TweeningTypes {
                                 RenderData::setPitch
                         )
         ));
-        clientRegistry.register(new TweeningType(
+        clientRegistry.register(new TweeningSelector(
                 Identifier.of(FPAMod.MODID, "roll"),
                 (tweenerType, arguments) -> (start, end) ->
                         new ValueTweening(
@@ -121,7 +121,7 @@ public class TweeningTypes {
                                 RenderData::setRoll
                         )
         ));
-        clientRegistry.register(new TweeningType(
+        clientRegistry.register(new TweeningSelector(
                 Identifier.of(FPAMod.MODID, "scale_x"),
                 (tweenerType, arguments) -> (start, end) ->
                         new ValueTweening(
@@ -133,7 +133,7 @@ public class TweeningTypes {
                                 RenderData::setScaleX
                         )
         ));
-        clientRegistry.register(new TweeningType(
+        clientRegistry.register(new TweeningSelector(
                 Identifier.of(FPAMod.MODID, "scale_y"),
                 (tweenerType, arguments) -> (start, end) ->
                         new ValueTweening(
@@ -145,7 +145,7 @@ public class TweeningTypes {
                                 RenderData::setScaleY
                         )
         ));
-        clientRegistry.register(new TweeningType(
+        clientRegistry.register(new TweeningSelector(
                 Identifier.of(FPAMod.MODID, "scale_z"),
                 (tweenerType, arguments) -> (start, end) ->
                         new ValueTweening(
@@ -157,7 +157,7 @@ public class TweeningTypes {
                                 RenderData::setScaleZ
                         )
         ));
-        clientRegistry.register(new TweeningType(
+        clientRegistry.register(new TweeningSelector(
                 Identifier.of(FPAMod.MODID, "xy"),
                 (tweenerType, arguments) -> (start, end) ->
                         new BiValueTweening(
@@ -169,7 +169,7 @@ public class TweeningTypes {
                                 (data, vector) -> data.setPositionX(vector.x).setPositionY(vector.y)
                         )
         ));
-        clientRegistry.register(new TweeningType(
+        clientRegistry.register(new TweeningSelector(
                 Identifier.of(FPAMod.MODID, "yz"),
                 (tweenerType, arguments) -> (start, end) ->
                         new BiValueTweening(
@@ -181,7 +181,7 @@ public class TweeningTypes {
                                 (data, vector) -> data.setPositionY(vector.x).setPositionZ(vector.y)
                         )
         ));
-        clientRegistry.register(new TweeningType(
+        clientRegistry.register(new TweeningSelector(
                 Identifier.of(FPAMod.MODID, "xz"),
                 (tweenerType, arguments) -> (start, end) ->
                         new BiValueTweening(

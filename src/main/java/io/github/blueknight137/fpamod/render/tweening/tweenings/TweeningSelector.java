@@ -9,11 +9,11 @@ import net.minecraft.util.Identifier;
 import java.util.List;
 import java.util.function.BiFunction;
 
-public class TweeningType implements Identifiable {
+public class TweeningSelector implements Identifiable {
     public final Identifier id;
     private final BiFunction<TweenerType, List<Float>, BiFunction<Keyframe, Keyframe, Tweening>> tweeningFactory;
 
-    public TweeningType(Identifier id, BiFunction<TweenerType, List<Float>, BiFunction<Keyframe, Keyframe, Tweening>> tweeningFactory) {
+    public TweeningSelector(Identifier id, BiFunction<TweenerType, List<Float>, BiFunction<Keyframe, Keyframe, Tweening>> tweeningFactory) {
         this.id = id;
         this.tweeningFactory = tweeningFactory;
     }

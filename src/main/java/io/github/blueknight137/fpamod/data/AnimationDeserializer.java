@@ -31,7 +31,9 @@ public class AnimationDeserializer extends JsonDeserializer<Animation> {
 
             for (var tweeningData : data.tweenings) {
                 TweenerType tweenerType = FPAMod.tweenerTypeClientRegistry.get(tweeningData.tweener);
-                FPAMod.tweeningTypeClientRegistry.get(tweeningData.type).buildInto(builder, tweeningData.startTag, tweeningData.endTag, tweenerType, tweeningData.arguments);
+                for(var selector : tweeningData.selectors) {
+                    FPAMod.tweeningSelectorClientRegistry.get(selector).buildInto(builder, tweeningData.startTag, tweeningData.endTag, tweenerType, tweeningData.arguments);
+                }
             }
         } catch (Exception e) {
             FPAMod.LOGGER.error("Could not deserialize animation! An animation defined in one of the resourcepacks is invalid or could not be loaded.");
@@ -55,7 +57,7 @@ public class AnimationDeserializer extends JsonDeserializer<Animation> {
 
     private static class TweeningData {
         @JsonProperty
-        public String type;
+        public List<String> selectors;
         @JsonProperty
         public String tweener;
         @JsonProperty

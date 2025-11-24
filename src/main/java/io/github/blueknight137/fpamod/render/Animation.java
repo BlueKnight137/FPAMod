@@ -89,7 +89,7 @@ public class Animation {
             } else {
                 if(keyframes.getLast().getTimestamp() > keyFrame.getTimestamp()) {
                     FPAMod.LOGGER.error("Invalid keyframe order detected! Keyframe with timestamp [{}] is not in order compared to the other keyframes!", keyFrame.getTimestamp());
-                    throw new IllegalArgumentException("KeyFrame is before the last KeyFrame!");
+                    throw new IllegalArgumentException("Keyframe is before the last KeyFrame!");
                 }
                 keyframes.getLast().next = keyFrame;
                 keyframes.add(keyFrame);
@@ -110,7 +110,7 @@ public class Animation {
                 }
                 if(!foundEnd) {
                     FPAMod.LOGGER.error("Invalid tweening definition! Could not find end tag [{}] for start tag [{}]!", endTag, startTag);
-                    throw new IllegalArgumentException("KeyFrame corresponding to the endTag of a Tweening is missing!");
+                    throw new IllegalArgumentException("Keyframe corresponding to the endTag of a Tweening is missing!");
                 }
             }
             return this;
